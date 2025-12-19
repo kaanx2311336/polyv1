@@ -1,0 +1,35 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<h2>Request Management</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Author</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for req in requests %}
+        <tr>
+            <td>{{ req.id }}</td>
+            <td>{{ req.author.username }}</td>
+            <td>{{ req.product_type }}</td>
+            <td>{{ req.category }}</td>
+            <td>{{ req.timestamp.strftime('%Y-%m-%d') }}</td>
+            <td>
+                <a href="{{ url_for('main.request_detail', id=req.id) }}" class="btn btn-sm btn-info" target="_blank">View</a>
+                <form action="{{ url_for('admin.delete_request', id=req.id) }}" method="post" class="d-inline" onsubmit="return confirm('Are you sure?')">
+                    {{ form.hidden_tag() }}
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

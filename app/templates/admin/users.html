@@ -1,0 +1,61 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<h2>User Management</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Credits</th>
+            <th>Tax ID</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }} {% if user.is_admin %}<span class="badge bg-danger">Admin</span>{% endif %}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.credits }}</td>
+            <td>
+                {{ user.tax_id or '-' }}
+                {% if user.tax_id and not user.is_verified %}
+                <form action="{{ url_for('admin.verify_user', id=user.id) }}" method="post" class="d-inline">
+                    {{ form.hidden_tag() }}
+                    <button type="submit" class="btn btn-sm btn-success">Verify</button>
+                </form>
+                {% endif %}
+                {% if user.is_verified %}
+                <span class="badge bg-success">Verified</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if user.is_blocked %}
+                <span class="badge bg-danger">Blocked</span>
+                {% else %}
+                <span class="badge bg-success">Active</span>
+                {% endif %}
+            </td>
+            <td>
+                <form action="{{ url_for('admin.toggle_block_user', id=user.id) }}" method="post" class="d-inline">
+                    {{ form.hidden_tag() }}
+                    <button type="submit" class="btn btn-sm btn-warning">
+                        {% if user.is_blocked %}Unblock{% else %}Block{% endif %}
+                    </button>
+                </form>
+                
+                <form action="{{ url_for('admin.add_credits', id=user.id) }}" method="post" class="d-inline">
+                    {{ form.hidden_tag() }}
+                    <input type="number" name="amount" placeholder="+Credits" style="width: 80px;" required>
+                    <button type="submit" class="btn btn-sm btn-primary">Add</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

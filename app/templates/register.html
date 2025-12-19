@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Register</h1>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.username.label(class="form-label") }}<br>
+        {{ form.username(class="form-control", size=32) }}
+    </p>
+    <p>
+        {{ form.email.label(class="form-label") }}<br>
+        {{ form.email(class="form-control", size=32) }}
+    </p>
+    <p>
+        {{ form.password.label(class="form-label") }}<br>
+        {{ form.password(class="form-control", size=32) }}
+    </p>
+    <p>
+        {{ form.password_2.label(class="form-label") }}<br>
+        {{ form.password_2(class="form-control", size=32) }}
+    </p>
+    <p>
+        {{ form.tax_id.label(class="form-label") }}<br>
+        {{ form.tax_id(class="form-control", size=32) }}
+    </p>
+    <p>
+        {{ form.is_seller(class="form-check-input") }} {{ form.is_seller.label(class="form-check-label") }}
+    </p>
+    <p>{{ form.submit(class="btn btn-primary") }}</p>
+</form>
+{% endblock %}

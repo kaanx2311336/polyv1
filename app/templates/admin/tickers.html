@@ -1,0 +1,51 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<h2>Ticker Management</h2>
+<div class="card mb-4">
+    <div class="card-header">Add New Ticker</div>
+    <div class="card-body">
+        <form action="" method="post" class="row g-3">
+            {{ form.hidden_tag() }}
+            <div class="col-md-4">
+                {{ form.name(class="form-control", placeholder="Name (e.g. USD/TRY)") }}
+            </div>
+            <div class="col-md-4">
+                {{ form.value(class="form-control", placeholder="Value (e.g. 32.50)") }}
+            </div>
+            <div class="col-md-3">
+                {{ form.change(class="form-control", placeholder="Change (e.g. +0.1%)") }}
+            </div>
+            <div class="col-md-1">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Value</th>
+            <th>Change</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ticker in tickers %}
+        <tr>
+            <td>{{ ticker.name }}</td>
+            <td>{{ ticker.value }}</td>
+            <td>{{ ticker.change_rate }}</td>
+            <td>
+                <form action="{{ url_for('admin.delete_ticker', id=ticker.id) }}" method="post" class="d-inline">
+                    {{ action_form.hidden_tag() }}
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

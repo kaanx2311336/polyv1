@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Marketplace</h1>
+<p>Browse active requests from buyers.</p>
+
+<div class="list-group">
+    {% for req in requests %}
+    <a href="{{ url_for('main.request_detail', id=req.id) }}" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ req.product_type }} ({{ req.spec }})</h5>
+            <small>{{ req.timestamp.strftime('%Y-%m-%d') }}</small>
+        </div>
+        <p class="mb-1">
+            <strong>Category:</strong> {{ req.category }} <br>
+            <strong>Quantity:</strong> {{ req.quantity }} <br>
+            <strong>Origin:</strong> {{ req.origin }}
+        </p>
+        <small>Created by User #{{ req.user_id }} | Status: {{ req.status }}</small>
+    </a>
+    {% else %}
+    <p>No active requests at the moment.</p>
+    {% endfor %}
+</div>
+{% endblock %}

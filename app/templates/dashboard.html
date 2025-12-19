@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Dashboard</h1>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-header">Account Info</div>
+            <div class="card-body">
+                <p>Username: {{ current_user.username }}</p>
+                <p>Credits: {{ current_user.credits }}</p>
+                <a href="{{ url_for('main.buy_credits') }}" class="btn btn-warning">Buy Credits</a>
+                <a href="{{ url_for('main.create_request') }}" class="btn btn-success mt-2">Create New Request</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <h3>My Requests</h3>
+        {% if my_requests %}
+        <div class="list-group">
+            {% for req in my_requests %}
+            <a href="{{ url_for('main.request_detail', id=req.id) }}" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ req.product_type }} - {{ req.spec }}</h5>
+                    <small>{{ req.timestamp.strftime('%Y-%m-%d') }}</small>
+                </div>
+                <p class="mb-1">{{ req.category }} - {{ req.quantity }}</p>
+                <small>Bids: {{ req.bids.count() }}</small>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No requests found.</p>
+        {% endif %}
+        
+        {% if current_user.is_seller %}
+        <h3 class="mt-4">My Bids</h3>
+        <div class="list-group">
+            {% for bid in my_bids %}
+            <a href="{{ url_for('main.request_detail', id=bid.request_id) }}" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Bid on {{ bid.request.product_type }}</h5>
+                    <small>{{ bid.timestamp.strftime('%Y-%m-%d') }}</small>
+                </div>
+                <p class="mb-1">Price: {{ bid.price }}</p>
+            </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<h2>Category Management</h2>
+<div class="card mb-4">
+    <div class="card-header">Add New Category</div>
+    <div class="card-body">
+        <form action="" method="post" class="row g-3">
+            {{ form.hidden_tag() }}
+            <div class="col-md-4">
+                {{ form.name(class="form-control", placeholder="Category Name") }}
+            </div>
+            <div class="col-md-4">
+                {{ form.parent_id(class="form-select") }}
+            </div>
+            <div class="col-md-2">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Parent ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cat in categories %}
+        <tr>
+            <td>{{ cat.id }}</td>
+            <td>{{ cat.name }}</td>
+            <td>{{ cat.parent_id or '-' }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

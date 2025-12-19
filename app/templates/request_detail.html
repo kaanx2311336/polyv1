@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header">
+        Request Details
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Talep No: {{ '%010d' % req.id }}</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Ürün Cinsi:</strong> {{ req.product_type }}</p>
+                <p><strong>Ürün Spesifik Özelliği:</strong> {{ req.spec }}</p>
+                <p><strong>Menşei:</strong> {{ req.origin }}</p>
+                <p><strong>Uygulama Alanı:</strong> {{ req.application }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Miktar:</strong> {{ req.quantity }}</p>
+                <p><strong>Ürün Durumu:</strong> {{ req.product_status }}</p>
+                <p><strong>Gümrükleme Statüsü:</strong> {{ req.customs_status }}</p>
+                <p><strong>Ambalaj Türü:</strong> {{ req.packaging }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>Offers (Teklifler)</h3>
+<div class="list-group mb-4">
+    {% for bid in req.bids %}
+    <div class="list-group-item">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Satıcı - {{ bid.seller_id }}</h5>
+            <small>{{ bid.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
+        </div>
+        <p class="mb-1"><strong>Fiyat:</strong> {{ bid.price }}</p>
+        <small>{{ bid.details }}</small>
+    </div>
+    {% else %}
+    <p>No offers yet.</p>
+    {% endfor %}
+</div>
+
+{% if current_user.is_seller and current_user.id != req.user_id %}
+<div class="card">
+    <div class="card-header">Submit Offer</div>
+    <div class="card-body">
+        <form action="" method="post">
+            <div class="mb-3">
+                <label for="price" class="form-label">Price (Fiyat)</label>
+                <input type="text" class="form-control" id="price" name="price" placeholder="e.g. 1100 USD / Ton + KDV" required>
+            </div>
+            <div class="mb-3">
+                <label for="details" class="form-label">Details / Notes</label>
+                <textarea class="form-control" id="details" name="details" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Offer</button>
+        </form>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

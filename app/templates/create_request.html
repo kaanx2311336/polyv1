@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Create Request</h1>
+<div class="alert alert-warning">Cost: 1 Credit</div>
+
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form.category.label(class="form-label") }}
+            {{ form.category(class="form-select") }}
+        </div>
+        <div class="col-md-6 mb-3">
+            {{ form.sub_category.label(class="form-label") }}
+            {{ form.sub_category(class="form-control", placeholder="e.g. Domestic Road Transport") }}
+            <div class="form-text">If applicable (e.g. Polimerler, Yeni Makineler, Fuar Hizmetleri, etc.)</div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form.product_type.label(class="form-label") }}
+            {{ form.product_type(class="form-control", placeholder="e.g. PVC") }}
+        </div>
+        <div class="col-md-6 mb-3">
+            {{ form.spec.label(class="form-label") }}
+            {{ form.spec(class="form-control", placeholder="e.g. K70") }}
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form.origin.label(class="form-label") }}
+            {{ form.origin(class="form-control", placeholder="e.g. Hungary") }}
+        </div>
+        <div class="col-md-6 mb-3">
+            {{ form.application.label(class="form-label") }}
+            {{ form.application(class="form-control", placeholder="e.g. Cable Production") }}
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form.quantity.label(class="form-label") }}
+            {{ form.quantity(class="form-control", placeholder="e.g. 100 Ton") }}
+        </div>
+        <div class="col-md-6 mb-3">
+            {{ form.product_status.label(class="form-label") }}
+            {{ form.product_status(class="form-control", placeholder="e.g. Ready") }}
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form.customs_status.label(class="form-label") }}
+            {{ form.customs_status(class="form-control", placeholder="e.g. Nationalized") }}
+        </div>
+        <div class="col-md-6 mb-3">
+            {{ form.packaging.label(class="form-label") }}
+            {{ form.packaging(class="form-control", placeholder="e.g. Bigbag") }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form.deadline.label(class="form-label") }}
+            {{ form.deadline(class="form-control", type="date") }}
+        </div>
+    </div>
+    
+    {{ form.submit(class="btn btn-primary") }}
+</form>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Buy Credits</h1>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">10 Credits</h5>
+                <p class="card-text">Price: 100 USD</p>
+                <form action="" method="post">
+                    {{ form.hidden_tag() }}
+                    <input type="hidden" name="package" value="10">
+                    <button type="submit" class="btn btn-primary">Buy Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">20 Credits</h5>
+                <p class="card-text">Price: 170 USD</p>
+                <form action="" method="post">
+                    {{ form.hidden_tag() }}
+                    <input type="hidden" name="package" value="20">
+                    <button type="submit" class="btn btn-primary">Buy Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">50 Credits</h5>
+                <p class="card-text">Price: 350 USD</p>
+                <form action="" method="post">
+                    {{ form.hidden_tag() }}
+                    <input type="hidden" name="package" value="50">
+                    <button type="submit" class="btn btn-primary">Buy Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
